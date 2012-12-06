@@ -3,6 +3,11 @@
 count = ARGV.last.to_i if ARGV.length > 0
 count ||= 10
 
+def extract_line source, search
+  lines = source.split '\n'
+  lines.select {|l| l =~ search }.first
+end
+
 def name_from_facebook_id fbid
   fbid
   
@@ -14,11 +19,6 @@ def load_page
   File.read("/Users/ben/Desktop/Facebook.html")
 end
 
-def extract_line source
-  lines = source.split '\n'
-  lines.select {|l| l =~ /OrderedFriendsListInitialData/}.first
-end
-
 def parse_line friends_line
   friends_line =~ /\["OrderedFriendsListInitialData",\[\],\{"list":\["([\"0-9\,]*)"/
   friends_str = $1
@@ -26,8 +26,8 @@ def parse_line friends_line
 end
 
 def extract_friends page_source
-  friends_line = extract_line page_source
-  parse_line extract_line(page_source)
+  friends_line = extract_line(page_source, /OrderedFriendsListInitialData/)
+  parse_line friends_line
 end
 
 def get_ordered_friend_list
