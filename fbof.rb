@@ -1,11 +1,14 @@
 #!/usr/bin/env ruby -wKU
 
 def name_from_facebook_id fbid
-  nil
+  fbid
+  
 end
 
+# Load a random page from facebook and return the source
 def load_page
-  nil
+  # temporary static data
+  File.read("/Users/ben/Desktop/Facebook.html")
 end
 
 def extract_line source
