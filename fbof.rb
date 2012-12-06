@@ -47,7 +47,16 @@ def get_ordered_friend_list
   extract_friends load_page()
 end
 
-friend_names = get_ordered_friend_list().map{ |id| name_from_facebook_id id }
+############# Program flow #############
+
+puts 'Loading friends'
+
+friend_names = get_ordered_friend_list().map do |id| 
+  print "\rLoading #{id}"
+  name_from_facebook_id id 
+end
+
+puts
 
 friend_names.first(count).each_with_index do |friend, index|
   puts "#{index+1}: #{friend}"
