@@ -1,5 +1,8 @@
 #!/usr/bin/env ruby -wKU
 
+count = ARGV.last.to_i if ARGV.length > 0
+count ||= 10
+
 def name_from_facebook_id fbid
   fbid
   
@@ -33,6 +36,6 @@ end
 
 friend_names = get_ordered_friend_list().map{ |id| name_from_facebook_id id }
 
-friend_names.each_with_index do |friend, index|
-  puts "#{index}: #{friend}"
+friend_names.first(count).each_with_index do |friend, index|
+  puts "#{index+1}: #{friend}"
 end
